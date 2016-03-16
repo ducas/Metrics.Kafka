@@ -1,0 +1,29 @@
+version: 0.0.1.{build}-{branch}
+
+cache:
+  - packages -> **\packages.config  # keep the packages folder between builds unless packages.config changes
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "0.0.1.{build}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
+nuget:
+  account_feed: true
+  project_feed: true
+  disable_publish_on_pr: true
+
+platform: Any CPU
+configuration: Release
+
+build:
+  parallel: true
+
+before_build:
+  - nuget restore
+
+test:
+  assemblies:
+    - Metrics.Kafka.UnitTests.dll

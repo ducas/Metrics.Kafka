@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrics.Kafka", "src\Metric
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5B42C343-E4D5-4F5D-AB9E-57797C6795EA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CC2CF599-5955-4D04-92B2-F32593860CBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{ACF56572-40EB-4FC3-890C-FE793E5ABA42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +21,16 @@ Global
 		{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACF56572-40EB-4FC3-890C-FE793E5ABA42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACF56572-40EB-4FC3-890C-FE793E5ABA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACF56572-40EB-4FC3-890C-FE793E5ABA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACF56572-40EB-4FC3-890C-FE793E5ABA42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0} = {5B42C343-E4D5-4F5D-AB9E-57797C6795EA}
+		{ACF56572-40EB-4FC3-890C-FE793E5ABA42} = {CC2CF599-5955-4D04-92B2-F32593860CBC}
 	EndGlobalSection
 EndGlobal

@@ -12,7 +12,7 @@ namespace Metrics.Kafka
             return new Message
             {
                 Key = contextName,
-                Value = Properties.AsJson(false),
+                Value = Properties?.AsJson(false),
                 Codec = Compression.Snappy
             };
         }

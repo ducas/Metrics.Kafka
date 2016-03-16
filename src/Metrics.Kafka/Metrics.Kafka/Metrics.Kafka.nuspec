@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Metrics.Kafka</id>
+    <version>0.0.1</version>
+    <authors>Ducas Francis</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Metrics.Net reporter that publishes to a Kafka topic.</description>
+    <dependencies>
+      <dependency id="Kafka.Basic" version="0.0.1-CI00001" />
+	  <dependency id="KafkaNet" version="0.0.1-alpha00003" />
+	  <dependency id="log4net" version="1.2.10" />
+	  <dependency id="Metrics.NET" version="0.2.16" />
+	  <dependency id="ZooKeeper.Net" version="3.4.6.2" />
+    </dependencies>
+  </metadata>
+</package>

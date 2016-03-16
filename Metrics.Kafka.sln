@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrics.Kafka", "Metrics.Kafka\Metrics.Kafka.csproj", "{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metrics.Kafka", "src\Metrics.Kafka\Metrics.Kafka.csproj", "{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5B42C343-E4D5-4F5D-AB9E-57797C6795EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3EE3F959-08D7-4D42-9A5C-B86865F6DBD0} = {5B42C343-E4D5-4F5D-AB9E-57797C6795EA}
 	EndGlobalSection
 EndGlobal

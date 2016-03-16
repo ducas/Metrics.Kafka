@@ -44,7 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Kafka.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Kafka.Basic.1.0.0-CI00001\lib\net451\Kafka.Basic.dll</HintPath>
+      <HintPath>..\packages\Kafka.Basic.1.0.0-CI00004\lib\net451\Kafka.Basic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="KafkaNET.Library, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">

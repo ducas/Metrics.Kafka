@@ -84,11 +84,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="given_a_json_encoder\when_converting_a_gauge_to_a_kafka_document.cs" />
     <Compile Include="given_a_kafka_document\when_converting_to_a_message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Metrics.Kafka\Metrics.Kafka.csproj">
+    <ProjectReference Include="..\..\src\Metrics.Kafka\Metrics.Kafka.csproj">
       <Project>{3ee3f959-08d7-4d42-9a5c-b86865f6dbd0}</Project>
       <Name>Metrics.Kafka</Name>
     </ProjectReference>

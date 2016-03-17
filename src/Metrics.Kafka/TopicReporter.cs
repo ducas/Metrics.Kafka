@@ -74,24 +74,9 @@ namespace Metrics.Kafka
 
         protected override void ReportMeter(string name, MeterValue value, Unit unit, TimeUnit rateUnit, MetricTags tags)
         {
-            var itemProperties = value.Items.SelectMany(i => new[]
-            {
-                new JsonProperty(i.Item + " - Count", i.Value.Count),
-                new JsonProperty(i.Item + " - Percent", i.Percent),
-                new JsonProperty(i.Item + " - Mean Rate", i.Value.MeanRate),
-                new JsonProperty(i.Item + " - 1 Min Rate", i.Value.OneMinuteRate),
-                new JsonProperty(i.Item + " - 5 Min Rate", i.Value.FiveMinuteRate),
-                new JsonProperty(i.Item + " - 15 Min Rate", i.Value.FifteenMinuteRate)
-            });
-
-            Pack("Meter", name, unit, tags, new[]
-            {
-                new JsonProperty("Count", value.Count),
-                new JsonProperty("Mean Rate", value.MeanRate),
-                new JsonProperty("1 Min Rate", value.OneMinuteRate),
-                new JsonProperty("5 Min Rate", value.FiveMinuteRate),
-                new JsonProperty("15 Min Rate", value.FifteenMinuteRate)
-            }.Concat(itemProperties));
+            _encoder
+                .Meter(name, CurrentContextTimestamp, value, unit, rateUnit, tags)
+                .AddTo(_data);
         }
 
         protected override void ReportHistogram(string name, HistogramValue value, Unit unit, MetricTags tags)

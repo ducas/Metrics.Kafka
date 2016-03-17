@@ -48,5 +48,40 @@ namespace Metrics.Kafka
                 new JsonProperty("Count", value.Count),
             }.Concat(itemProperties));
         }
+
+        public IKafkaDocument Meter(string name, DateTime timestamp, MeterValue value, Unit unit, TimeUnit timeUnit, MetricTags tags)
+        {
+            return new JsonKafkaDocument<Meter>
+            {
+                Type = "Meter",
+                Name = name,
+                Timestamp = timestamp,
+                Tags = tags.Tags,
+                Value = new Meter
+                {
+                    Unit = unit,
+                    TimeUnit = timeUnit,
+                    Current = new MeterItem
+                    {
+                        Count = value.Count,
+                        MeanRate = value.MeanRate,
+                        OneMinuteRate = value.OneMinuteRate,
+                        FiveMinuteRate = value.FiveMinuteRate,
+                        FifteenMinuteRate = value.FifteenMinuteRate
+                    },
+                    Items = value.Items
+                        .Select(i => new MeterItem
+                        {
+                            Count = i.Value.Count,
+                            Percent = i.Percent,
+                            MeanRate = i.Value.MeanRate,
+                            OneMinuteRate = i.Value.OneMinuteRate,
+                            FiveMinuteRate = i.Value.FiveMinuteRate,
+                            FifteenMinuteRate = i.Value.FifteenMinuteRate
+                        })
+                        .ToArray()
+                }
+            };
+        }
     }
 }

@@ -110,5 +110,36 @@ namespace Metrics.Kafka
                 }
             };
         }
+
+        public IKafkaDocument Histogram(string name, DateTime timestamp, HistogramValue value, Unit unit, MetricTags tags)
+        {
+            return new JsonKafkaDocument<Histogram>
+            {
+                Name = name,
+                Timestamp = timestamp,
+                Type = "Histogram",
+                Tags = tags.Tags,
+                Value = new Histogram
+                {
+                    Unit = unit,
+                    Count = value.Count,
+                    Last = value.LastValue,
+                    LastUserValue = value.LastUserValue,
+                    Max = value.Max,
+                    MaxUserValue = value.MaxUserValue,
+                    Mean = value.Mean,
+                    Min = value.Min,
+                    MinUserValue = value.MinUserValue,
+                    StdDev = value.StdDev,
+                    Median = value.Median,
+                    Percentile75 = value.Percentile75,
+                    Percentile95 = value.Percentile95,
+                    Percentile98 = value.Percentile98,
+                    Percentile99 = value.Percentile99,
+                    Percentile999 = value.Percentile999,
+                    SampleSize = value.SampleSize
+                }
+            };
+        }
     }
 }

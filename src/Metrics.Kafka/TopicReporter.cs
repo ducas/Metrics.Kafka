@@ -81,25 +81,9 @@ namespace Metrics.Kafka
 
         protected override void ReportHistogram(string name, HistogramValue value, Unit unit, MetricTags tags)
         {
-            Pack("Histogram", name, unit, tags, new[]
-            {
-                new JsonProperty("Total Count", value.Count),
-                new JsonProperty("Last", value.LastValue),
-                new JsonProperty("Last User Value", value.LastUserValue),
-                new JsonProperty("Min", value.Min),
-                new JsonProperty("Min User Value", value.MinUserValue),
-                new JsonProperty("Mean", value.Mean),
-                new JsonProperty("Max", value.Max),
-                new JsonProperty("Max User Value", value.MaxUserValue),
-                new JsonProperty("StdDev", value.StdDev),
-                new JsonProperty("Median", value.Median),
-                new JsonProperty("Percentile 75%", value.Percentile75),
-                new JsonProperty("Percentile 95%", value.Percentile95),
-                new JsonProperty("Percentile 98%", value.Percentile98),
-                new JsonProperty("Percentile 99%", value.Percentile99),
-                new JsonProperty("Percentile 99.9%", value.Percentile999),
-                new JsonProperty("Sample Size", value.SampleSize)
-            });
+            _encoder
+                .Histogram(name, CurrentContextTimestamp, value, unit, tags)
+                .AddTo(_data);
         }
 
         protected override void ReportTimer(string name, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)

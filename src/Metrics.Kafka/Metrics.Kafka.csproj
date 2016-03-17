@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gauge.cs" />
     <Compile Include="IEncoder.cs" />
     <Compile Include="IKafkaDocument.cs" />
     <Compile Include="JsonEncoder.cs" />

@@ -13,9 +13,18 @@ namespace Metrics.Kafka
         {
             if (!double.IsNaN(value) && !double.IsInfinity(value))
             {
-               return  Pack("Gauge", name, timestamp, unit, tags, new[] {
-                    new JsonProperty("Value", value),
-                });
+                return new JsonKafkaDocument<Gauge>
+                {
+                    Name = name,
+                    Type = "Gauge",
+                    Timestamp = timestamp,
+                    Tags = tags.Tags,
+                    Value = new Gauge
+                    {
+                        Unit = unit,
+                        Value = value
+                    }
+                };
             }
             return null;
         }

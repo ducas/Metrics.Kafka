@@ -1,9 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Metrics;
-using Metrics.Json;
 using Metrics.Kafka;
-using Metrics.Utils;
 using NUnit.Framework;
 
 namespace UnitTests.given_a_json_encoder
@@ -39,20 +37,20 @@ namespace UnitTests.given_a_json_encoder
             {
                 var encoder = new JsonEncoder();
                 var timestamp = DateTime.Today;
-                var actual = encoder.Gauge("gauge", timestamp, 1, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument;
-                var expected = new JsonKafkaDocument
+                var actual = encoder.Gauge("gauge", timestamp, 1, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Gauge>;
+                var expected = new JsonKafkaDocument<Gauge>
                 {
-                    Properties = new JsonObject(new[]
+                    Name = "gauge",
+                    Type = "Gauge",
+                    Tags = new[] { "tag1", "tag2" },
+                    Timestamp = timestamp,
+                    Value = new Gauge()
                     {
-                        new JsonProperty("Timestamp", Clock.FormatTimestamp(timestamp)),
-                        new JsonProperty("Type", "Gauge"),
-                        new JsonProperty("Name", "gauge"),
-                        new JsonProperty("Unit", "Calls"),
-                        new JsonProperty("Tags", new[] { "tag1", "tag2" }),
-                        new JsonProperty("Value", 1D)
-                    })
+                        Unit = Unit.Calls,
+                        Value = 1
+                    }
                 };
-                actual.Properties.AsJson().Should().Be(expected.Properties.AsJson());
+                actual.ShouldBeEquivalentTo(expected);
             }
         }
     }

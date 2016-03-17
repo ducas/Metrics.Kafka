@@ -67,16 +67,9 @@ namespace Metrics.Kafka
 
         protected override void ReportCounter(string name, CounterValue value, Unit unit, MetricTags tags)
         {
-            var itemProperties = value.Items.SelectMany(i => new[]
-            {
-                new JsonProperty(i.Item + " - Count", i.Count),
-                new JsonProperty(i.Item + " - Percent", i.Percent),
-            });
-
-            Pack("Counter", name, unit, tags, new[]
-            {
-                new JsonProperty("Count", value.Count),
-            }.Concat(itemProperties));
+            _encoder
+                .Counter(name, CurrentContextTimestamp, value, unit, tags)
+                .AddTo(_data);
         }
 
         protected override void ReportMeter(string name, MeterValue value, Unit unit, TimeUnit rateUnit, MetricTags tags)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Metrics.Json;
+using Metrics.MetricData;
 using Metrics.Utils;
 
 namespace Metrics.Kafka
@@ -32,6 +33,20 @@ namespace Metrics.Kafka
                     new JsonProperty("Tags", tags.Tags)
                 }.Concat(properties))
             };
+        }
+
+        public IKafkaDocument Counter(string name, DateTime timestamp, CounterValue value, Unit unit, MetricTags tags)
+        {
+            var itemProperties = value.Items.SelectMany(i => new[]
+            {
+                new JsonProperty(i.Item + " - Count", i.Count),
+                new JsonProperty(i.Item + " - Percent", i.Percent),
+            });
+
+            return Pack("Counter", name, timestamp, unit, tags, new[]
+            {
+                new JsonProperty("Count", value.Count),
+            }.Concat(itemProperties));
         }
     }
 }

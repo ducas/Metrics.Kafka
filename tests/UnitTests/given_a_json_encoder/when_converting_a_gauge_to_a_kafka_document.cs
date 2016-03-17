@@ -35,7 +35,7 @@ namespace UnitTests.given_a_json_encoder
         public class and_the_value_of_the_guage_is_a_valid_number
         {
             [Test]
-            public void then_the_a_document_will_be_returned()
+            public void then_a_document_will_be_returned()
             {
                 var encoder = new JsonEncoder();
                 var timestamp = DateTime.Today;

@@ -11,7 +11,7 @@ namespace UnitTests.given_a_kafka_document
         [Test]
         public void then_key_is_set_to_the_context()
         {
-            var document = new KafkaDocument();
+            var document = new JsonKafkaDocument();
             var message = document.ToMessage("context");
             message.Key.Should().Be("context");
         }
@@ -19,7 +19,7 @@ namespace UnitTests.given_a_kafka_document
         [Test]
         public void then_properties_are_serialized()
         {
-            var document = new KafkaDocument
+            var document = new JsonKafkaDocument
             {
                 Properties = new JsonObject(new[]
                 {
@@ -33,7 +33,7 @@ namespace UnitTests.given_a_kafka_document
         [Test]
         public void then_compression_codec_is_set_to_snappy()
         {
-            var document = new KafkaDocument();
+            var document = new JsonKafkaDocument();
             var message = document.ToMessage("context");
             message.Codec.Should().Be(Compression.Snappy);
         }

@@ -15,7 +15,8 @@ namespace Metrics.Kafka
         private readonly IKafkaClient _client;
         private readonly IKafkaTopic _topic;
         private string _contextName;
-        private List<KafkaDocument> _data;
+        private List<IKafkaDocument> _data;
+        private readonly IEncoder _encoder;
 
         public TopicReporter(string zookeeperConnect, string topicName)
             : this(new KafkaClient(zookeeperConnect), topicName)
@@ -25,12 +26,13 @@ namespace Metrics.Kafka
         {
             _client = client;
             _topic = _client.Topic(topicName);
+            _encoder = new JsonEncoder();
         }
 
         protected override void StartReport(string contextName)
         {
             _contextName = contextName;
-            _data = new List<KafkaDocument>();
+            _data = new List<IKafkaDocument>();
             base.StartReport(contextName);
         }
 
@@ -43,7 +45,7 @@ namespace Metrics.Kafka
 
         private void Pack(string type, string name, Unit unit, MetricTags tags, IEnumerable<JsonProperty> properties)
         {
-            _data.Add(new KafkaDocument
+            _data.Add(new JsonKafkaDocument
             {
                 Properties = new JsonObject(new[]
                 {
@@ -58,12 +60,9 @@ namespace Metrics.Kafka
 
         protected override void ReportGauge(string name, double value, Unit unit, MetricTags tags)
         {
-            if (!double.IsNaN(value) && !double.IsInfinity(value))
-            {
-                Pack("Gauge", name, unit, tags, new[] {
-                    new JsonProperty("Value", value),
-                });
-            }
+            _encoder
+                .Gauge(name, CurrentContextTimestamp, value, unit, tags)
+                .AddTo(_data);
         }
 
         protected override void ReportCounter(string name, CounterValue value, Unit unit, MetricTags tags)
@@ -165,7 +164,7 @@ namespace Metrics.Kafka
                     new JsonProperty("Message", r.Check.Message)
                 }));
 
-            _data.Add(new KafkaDocument
+            _data.Add(new JsonKafkaDocument
             {
                 Properties = new JsonObject(new[]
                 {

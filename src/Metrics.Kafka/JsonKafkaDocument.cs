@@ -3,7 +3,7 @@ using Metrics.Json;
 
 namespace Metrics.Kafka
 {
-    public class KafkaDocument
+    public class JsonKafkaDocument : IKafkaDocument
     {
         public JsonObject Properties { get; set; }
 

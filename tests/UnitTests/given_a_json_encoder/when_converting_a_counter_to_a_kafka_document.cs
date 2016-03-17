@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Metrics;
-using Metrics.Json;
 using Metrics.Kafka;
 using Metrics.MetricData;
-using Metrics.Utils;
 using NUnit.Framework;
+using Counter = Metrics.Kafka.Counter;
 
 namespace UnitTests.given_a_json_encoder
 {
@@ -25,21 +20,35 @@ namespace UnitTests.given_a_json_encoder
                 new CounterValue.SetItem("item1", 1, 10),
                 new CounterValue.SetItem("item2", 2, 20),
             });
-            var expected = new JsonObject(new []
+            var expected = new JsonKafkaDocument<Counter>
             {
-                new JsonProperty("Timestamp", Clock.FormatTimestamp(timestamp)),
-                new JsonProperty("Type", "Counter"),
-                new JsonProperty("Name", "counter"),
-                new JsonProperty("Unit", "Calls"),
-                new JsonProperty("Tags", new[] { "tag1", "tag2" }),
-                new JsonProperty("Count", 2),
-                new JsonProperty("item1 - Count", 1),
-                new JsonProperty("item1 - Percent", 10D),
-                new JsonProperty("item2 - Count", 2),
-                new JsonProperty("item2 - Percent", 20D),
-            });
-            var actual = encoder.Counter("counter", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument;
-            actual.Properties.AsJson().Should().Be(expected.AsJson());
+                Name = "counter",
+                Type = "Counter",
+                Timestamp = timestamp,
+                Tags = new[] { "tag1", "tag2" },
+                Value = new Counter
+                {
+                    Unit = Unit.Calls,
+                    Count = 2L,
+                    Items = new[]
+                    {
+                        new CounterItem
+                        {
+                            Name = "item1",
+                            Count = 1,
+                            Percentage = 10D
+                        },
+                        new CounterItem
+                        {
+                            Name = "item2",
+                            Count = 2,
+                            Percentage = 20D
+                        }
+                    }
+                }
+            };
+            var actual = encoder.Counter("counter", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Counter>;
+            actual.ShouldBeEquivalentTo(expected);
         }
     }
 }

@@ -46,6 +46,24 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Counter(string name, DateTime timestamp, CounterValue value, Unit unit, MetricTags tags)
         {
+            return new JsonKafkaDocument<Counter>
+            {
+                Name = name,
+                Type = "Counter",
+                Timestamp = timestamp,
+                Tags = tags.Tags,
+                Value = new Counter
+                {
+                    Unit = unit,
+                    Count = value.Count,
+                    Items = value.Items.Select(i => new CounterItem
+                    {
+                        Name = i.Item,
+                        Count = i.Count,
+                        Percentage = i.Percent
+                    }).ToArray() 
+                }
+            };
             var itemProperties = value.Items.SelectMany(i => new[]
             {
                 new JsonProperty(i.Item + " - Count", i.Count),

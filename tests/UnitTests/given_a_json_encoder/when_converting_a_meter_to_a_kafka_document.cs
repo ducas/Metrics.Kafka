@@ -1,14 +1,9 @@
 ﻿using System;
 using FluentAssertions;
 using Metrics;
-using Metrics.Json;
 using Metrics.Kafka;
 using Metrics.MetricData;
-using Metrics.Utils;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
-using JsonProperty = Metrics.Json.JsonProperty;
 using Meter = Metrics.Kafka.Meter;
 
 namespace UnitTests.given_a_json_encoder

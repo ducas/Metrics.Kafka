@@ -13,7 +13,7 @@ namespace Metrics.Kafka
         {
             if (!Double.IsNaN(value) && !Double.IsInfinity(value))
             {
-                return new JsonKafkaDocument<Gauge>
+                return new KafkaDocument<Gauge>
                 {
                     Name = name,
                     Type = "Gauge",
@@ -31,7 +31,7 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Counter(string name, DateTime timestamp, CounterValue value, Unit unit, MetricTags tags)
         {
-            return new JsonKafkaDocument<Counter>
+            return new KafkaDocument<Counter>
             {
                 Name = name,
                 Type = "Counter",
@@ -53,7 +53,7 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Meter(string name, DateTime timestamp, MeterValue value, Unit unit, TimeUnit timeUnit, MetricTags tags)
         {
-            return new JsonKafkaDocument<Meter>
+            return new KafkaDocument<Meter>
             {
                 Type = "Meter",
                 Name = name,
@@ -88,7 +88,7 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Histogram(string name, DateTime timestamp, HistogramValue value, Unit unit, MetricTags tags)
         {
-            return new JsonKafkaDocument<Histogram>
+            return new KafkaDocument<Histogram>
             {
                 Name = name,
                 Timestamp = timestamp,
@@ -119,7 +119,7 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Timer(string name, DateTime timestamp, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)
         {
-            return new JsonKafkaDocument<Timer>
+            return new KafkaDocument<Timer>
             {
                 Name = name,
                 Timestamp = timestamp,
@@ -157,7 +157,7 @@ namespace Metrics.Kafka
 
         public IKafkaDocument Health(string name, DateTime timestamp, HealthStatus status)
         {
-            return new JsonKafkaDocument<Health>
+            return new KafkaDocument<Health>
             {
                 Name = name,
                 Type = "Health",

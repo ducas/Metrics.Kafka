@@ -70,9 +70,9 @@
     <Compile Include="Health.cs" />
     <Compile Include="Histogram.cs" />
     <Compile Include="IMapper.cs" />
-    <Compile Include="IKafkaDocument.cs" />
+    <Compile Include="KafkaDocument.cs" />
+    <Compile Include="JsonEncoder.cs" />
     <Compile Include="Mapper.cs" />
-    <Compile Include="JsonKafkaDocument.cs" />
     <Compile Include="Meter.cs" />
     <Compile Include="MetricsReportsExtensions.cs" />
     <Compile Include="Timer.cs" />

@@ -20,7 +20,7 @@ namespace UnitTests.given_a_json_encoder
                 new CounterValue.SetItem("item1", 1, 10),
                 new CounterValue.SetItem("item2", 2, 20),
             });
-            var expected = new JsonKafkaDocument<Counter>
+            var expected = new KafkaDocument<Counter>
             {
                 Name = "counter",
                 Type = "Counter",
@@ -47,7 +47,7 @@ namespace UnitTests.given_a_json_encoder
                     }
                 }
             };
-            var actual = encoder.Counter("counter", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Counter>;
+            var actual = encoder.Counter("counter", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as KafkaDocument<Counter>;
             actual.ShouldBeEquivalentTo(expected);
         }
     }

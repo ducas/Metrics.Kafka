@@ -16,7 +16,7 @@ namespace UnitTests.given_a_json_encoder
             var encoder = new Mapper();
             var timestamp = DateTime.Today;
             var value = new HistogramValue(1, 2, "3", 4, "5", 6, 7, "8", 9, 10, 11, 12, 13, 14, 15, 16);
-            var expected = new JsonKafkaDocument<Histogram>
+            var expected = new KafkaDocument<Histogram>
             {
                 Name = "histogram",
                 Timestamp = timestamp,
@@ -44,7 +44,7 @@ namespace UnitTests.given_a_json_encoder
                 }
             };
 
-            var actual = encoder.Histogram("histogram", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Histogram>;
+            var actual = encoder.Histogram("histogram", timestamp, value, Unit.Calls, new MetricTags("tag1", "tag2")) as KafkaDocument<Histogram>;
             
             actual.ShouldBeEquivalentTo(expected);
         }

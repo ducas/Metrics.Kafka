@@ -2,9 +2,7 @@
 using FluentAssertions;
 using Metrics;
 using Metrics.Kafka;
-using Metrics.MetricData;
 using NUnit.Framework;
-using Timer = Metrics.Kafka.Timer;
 
 namespace UnitTests.given_a_json_encoder
 {
@@ -21,7 +19,7 @@ namespace UnitTests.given_a_json_encoder
                 new Metrics.Core.HealthCheck("check1", () => "no message").Execute(),
                 new Metrics.Core.HealthCheck("check2", () => HealthCheckResult.Unhealthy("some message")).Execute()
             });
-            var expected = new JsonKafkaDocument<Health>
+            var expected = new KafkaDocument<Health>
             {
                 Name = "health",
                 Timestamp = timestamp,
@@ -38,7 +36,7 @@ namespace UnitTests.given_a_json_encoder
                 }
             };
 
-            var actual = encoder.Health("health", timestamp, value) as JsonKafkaDocument<Health>;
+            var actual = encoder.Health("health", timestamp, value) as KafkaDocument<Health>;
 
             actual.ShouldBeEquivalentTo(expected);
         }

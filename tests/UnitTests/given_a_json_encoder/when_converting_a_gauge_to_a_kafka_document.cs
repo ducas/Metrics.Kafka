@@ -37,8 +37,8 @@ namespace UnitTests.given_a_json_encoder
             {
                 var encoder = new Mapper();
                 var timestamp = DateTime.Today;
-                var actual = encoder.Gauge("gauge", timestamp, 1, Unit.Calls, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Gauge>;
-                var expected = new JsonKafkaDocument<Gauge>
+                var actual = encoder.Gauge("gauge", timestamp, 1, Unit.Calls, new MetricTags("tag1", "tag2")) as KafkaDocument<Gauge>;
+                var expected = new KafkaDocument<Gauge>
                 {
                     Name = "gauge",
                     Type = "Gauge",

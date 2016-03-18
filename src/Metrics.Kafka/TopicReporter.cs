@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Kafka.Basic;
 using Metrics.Json;
@@ -17,6 +18,7 @@ namespace Metrics.Kafka
         private string _contextName;
         private List<IKafkaDocument> _data;
         private readonly IMapper _mapper;
+        private readonly IEncoder _encoder;
 
         public TopicReporter(string zookeeperConnect, string topicName)
             : this(new KafkaClient(zookeeperConnect), topicName)
@@ -27,6 +29,7 @@ namespace Metrics.Kafka
             _client = client;
             _topic = _client.Topic(topicName);
             _mapper = new Mapper();
+            _encoder = new JsonEncoder();
         }
 
         protected override void StartReport(string contextName)
@@ -39,7 +42,7 @@ namespace Metrics.Kafka
         protected override void EndReport(string contextName)
         {
             base.EndReport(contextName);
-            var messages = _data.Select(d => d.ToMessage(contextName)).ToArray();
+            var messages = _encoder.Encode(contextName, _data).ToArray();
             _topic.Send(messages);
         }
 

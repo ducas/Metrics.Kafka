@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Kafka.Basic;
 
 namespace Metrics.Kafka
 {
     public interface IKafkaDocument
     {
-        Message ToMessage(string contextName);
+        string Type { get; set; }
+        string Name { get; set; }
+        DateTime Timestamp { get; set; }
     }
 
     public interface IKafkaDocument<T> : IKafkaDocument
     {
-        string Type { get; set; }
-        string Name { get; set; }
-        DateTime Timestamp { get; set; }
         T Value { get; set; }
+    }
+    public class KafkaDocument<T> : IKafkaDocument<T>
+    {
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public DateTime Timestamp { get; set; }
+        public string[] Tags { get; set; }
+        public T Value { get; set; }
     }
 
     public static class KafkaDocumentExtensions

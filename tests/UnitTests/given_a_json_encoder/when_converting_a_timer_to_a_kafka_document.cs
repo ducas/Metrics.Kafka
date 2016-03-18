@@ -21,7 +21,7 @@ namespace UnitTests.given_a_json_encoder
                 10,
                 TimeUnit.Seconds
                 );
-            var expected = new JsonKafkaDocument<Timer>
+            var expected = new KafkaDocument<Timer>
             {
                 Name = "timer",
                 Timestamp = timestamp,
@@ -56,7 +56,7 @@ namespace UnitTests.given_a_json_encoder
                 }
             };
 
-            var actual = encoder.Timer("timer", timestamp, value, Unit.Calls, TimeUnit.Seconds, TimeUnit.Seconds, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Timer>;
+            var actual = encoder.Timer("timer", timestamp, value, Unit.Calls, TimeUnit.Seconds, TimeUnit.Seconds, new MetricTags("tag1", "tag2")) as KafkaDocument<Timer>;
             
             actual.ShouldBeEquivalentTo(expected);
         }

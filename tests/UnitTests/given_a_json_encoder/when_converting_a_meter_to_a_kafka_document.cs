@@ -21,7 +21,7 @@ namespace UnitTests.given_a_json_encoder
                 new MeterValue.SetItem("item1", 1, new MeterValue(10, 20, 30, 40, 50, TimeUnit.Seconds, new MeterValue.SetItem[0])),
                 new MeterValue.SetItem("item2", 2, new MeterValue(100, 200, 300, 400, 500, TimeUnit.Seconds, new MeterValue.SetItem[0])),
             });
-            var expected = new JsonKafkaDocument<Meter>
+            var expected = new KafkaDocument<Meter>
             {
                 Name = "meter",
                 Timestamp = timestamp,
@@ -63,7 +63,7 @@ namespace UnitTests.given_a_json_encoder
                 }
             };
 
-            var actual = encoder.Meter("meter", timestamp, value, Unit.Calls, TimeUnit.Seconds, new MetricTags("tag1", "tag2")) as JsonKafkaDocument<Meter>;
+            var actual = encoder.Meter("meter", timestamp, value, Unit.Calls, TimeUnit.Seconds, new MetricTags("tag1", "tag2")) as KafkaDocument<Meter>;
             
             actual.ShouldBeEquivalentTo(expected);
         }

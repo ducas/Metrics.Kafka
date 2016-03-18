@@ -7,7 +7,7 @@ using Metrics.Utils;
 
 namespace Metrics.Kafka
 {
-    public class JsonEncoder : IEncoder
+    public class Mapper : IMapper
     {
         public IKafkaDocument Gauge(string name, DateTime timestamp, double value, Unit unit, MetricTags tags)
         {

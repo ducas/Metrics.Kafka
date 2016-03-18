@@ -68,9 +68,9 @@
     <Compile Include="Counter.cs" />
     <Compile Include="Gauge.cs" />
     <Compile Include="Histogram.cs" />
-    <Compile Include="IEncoder.cs" />
+    <Compile Include="IMapper.cs" />
     <Compile Include="IKafkaDocument.cs" />
-    <Compile Include="JsonEncoder.cs" />
+    <Compile Include="Mapper.cs" />
     <Compile Include="JsonKafkaDocument.cs" />
     <Compile Include="Meter.cs" />
     <Compile Include="MetricsReportsExtensions.cs" />

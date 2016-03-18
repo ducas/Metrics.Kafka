@@ -13,7 +13,7 @@ namespace UnitTests.given_a_json_encoder
         [Test]
         public void then_a_document_will_be_returned()
         {
-            var encoder = new JsonEncoder();
+            var encoder = new Mapper();
             var timestamp = DateTime.Today;
             var value = new CounterValue(2, new[]
             {

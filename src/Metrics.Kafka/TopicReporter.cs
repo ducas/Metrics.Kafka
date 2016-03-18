@@ -16,7 +16,7 @@ namespace Metrics.Kafka
         private readonly IKafkaTopic _topic;
         private string _contextName;
         private List<IKafkaDocument> _data;
-        private readonly IEncoder _encoder;
+        private readonly IMapper _mapper;
 
         public TopicReporter(string zookeeperConnect, string topicName)
             : this(new KafkaClient(zookeeperConnect), topicName)
@@ -26,7 +26,7 @@ namespace Metrics.Kafka
         {
             _client = client;
             _topic = _client.Topic(topicName);
-            _encoder = new JsonEncoder();
+            _mapper = new Mapper();
         }
 
         protected override void StartReport(string contextName)
@@ -45,35 +45,35 @@ namespace Metrics.Kafka
 
         protected override void ReportGauge(string name, double value, Unit unit, MetricTags tags)
         {
-            _encoder
+            _mapper
                 .Gauge(name, CurrentContextTimestamp, value, unit, tags)
                 .AddTo(_data);
         }
 
         protected override void ReportCounter(string name, CounterValue value, Unit unit, MetricTags tags)
         {
-            _encoder
+            _mapper
                 .Counter(name, CurrentContextTimestamp, value, unit, tags)
                 .AddTo(_data);
         }
 
         protected override void ReportMeter(string name, MeterValue value, Unit unit, TimeUnit rateUnit, MetricTags tags)
         {
-            _encoder
+            _mapper
                 .Meter(name, CurrentContextTimestamp, value, unit, rateUnit, tags)
                 .AddTo(_data);
         }
 
         protected override void ReportHistogram(string name, HistogramValue value, Unit unit, MetricTags tags)
         {
-            _encoder
+            _mapper
                 .Histogram(name, CurrentContextTimestamp, value, unit, tags)
                 .AddTo(_data);
         }
 
         protected override void ReportTimer(string name, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)
         {
-            _encoder
+            _mapper
                 .Timer(name, CurrentContextTimestamp, value, unit, rateUnit, durationUnit, tags)
                 .AddTo(_data);
         }

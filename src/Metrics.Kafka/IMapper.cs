@@ -3,7 +3,7 @@ using Metrics.MetricData;
 
 namespace Metrics.Kafka
 {
-    public interface IEncoder
+    public interface IMapper
     {
         IKafkaDocument Gauge(string name, DateTime timestamp, double value, Unit unit, MetricTags tags);
         IKafkaDocument Counter(string name, DateTime timestamp, CounterValue value, Unit unit, MetricTags tags);

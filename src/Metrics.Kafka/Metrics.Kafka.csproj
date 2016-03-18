@@ -74,6 +74,7 @@
     <Compile Include="JsonKafkaDocument.cs" />
     <Compile Include="Meter.cs" />
     <Compile Include="MetricsReportsExtensions.cs" />
+    <Compile Include="Timer.cs" />
     <Compile Include="TopicReporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

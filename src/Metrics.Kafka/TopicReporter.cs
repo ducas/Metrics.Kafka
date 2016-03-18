@@ -43,21 +43,6 @@ namespace Metrics.Kafka
             _topic.Send(messages);
         }
 
-        private void Pack(string type, string name, Unit unit, MetricTags tags, IEnumerable<JsonProperty> properties)
-        {
-            _data.Add(new JsonKafkaDocument
-            {
-                Properties = new JsonObject(new[]
-                {
-                    new JsonProperty("Timestamp", Clock.FormatTimestamp(CurrentContextTimestamp)),
-                    new JsonProperty("Type", type),
-                    new JsonProperty("Name", name),
-                    new JsonProperty("Unit", unit.ToString()),
-                    new JsonProperty("Tags", tags.Tags)
-                }.Concat(properties))
-            });
-        }
-
         protected override void ReportGauge(string name, double value, Unit unit, MetricTags tags)
         {
             _encoder
@@ -88,30 +73,9 @@ namespace Metrics.Kafka
 
         protected override void ReportTimer(string name, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)
         {
-            Pack("Timer", name, unit, tags, new[]
-            {
-                new JsonProperty("Total Count", value.Rate.Count),
-                new JsonProperty("Active Sessions", value.ActiveSessions),
-                new JsonProperty("Mean Rate", value.Rate.MeanRate),
-                new JsonProperty("1 Min Rate", value.Rate.OneMinuteRate),
-                new JsonProperty("5 Min Rate", value.Rate.FiveMinuteRate),
-                new JsonProperty("15 Min Rate", value.Rate.FifteenMinuteRate),
-                new JsonProperty("Last", value.Histogram.LastValue),
-                new JsonProperty("Last User Value", value.Histogram.LastUserValue),
-                new JsonProperty("Min", value.Histogram.Min),
-                new JsonProperty("Min User Value", value.Histogram.MinUserValue),
-                new JsonProperty("Mean", value.Histogram.Mean),
-                new JsonProperty("Max", value.Histogram.Max),
-                new JsonProperty("Max User Value", value.Histogram.MaxUserValue),
-                new JsonProperty("StdDev", value.Histogram.StdDev),
-                new JsonProperty("Median", value.Histogram.Median),
-                new JsonProperty("Percentile 75%", value.Histogram.Percentile75),
-                new JsonProperty("Percentile 95%", value.Histogram.Percentile95),
-                new JsonProperty("Percentile 98%", value.Histogram.Percentile98),
-                new JsonProperty("Percentile 99%", value.Histogram.Percentile99),
-                new JsonProperty("Percentile 99.9%", value.Histogram.Percentile999),
-                new JsonProperty("Sample Size", value.Histogram.SampleSize)
-            });
+            _encoder
+                .Timer(name, CurrentContextTimestamp, value, unit, rateUnit, durationUnit, tags)
+                .AddTo(_data);
         }
 
         protected override void ReportHealth(HealthStatus status)

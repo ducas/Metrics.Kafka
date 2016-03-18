@@ -1,6 +1,4 @@
-﻿using Metrics.MetricData;
-
-namespace Metrics.Kafka
+﻿namespace Metrics.Kafka
 {
     public class Meter
     {

@@ -29,21 +29,6 @@ namespace Metrics.Kafka
             return null;
         }
 
-        private IKafkaDocument Pack(string type, string name, DateTime timestamp, Unit unit, MetricTags tags, IEnumerable<JsonProperty> properties)
-        {
-            return new JsonKafkaDocument
-            {
-                Properties = new JsonObject(new[]
-                {
-                    new JsonProperty("Timestamp", Clock.FormatTimestamp(timestamp)),
-                    new JsonProperty("Type", type),
-                    new JsonProperty("Name", name),
-                    new JsonProperty("Unit", unit.ToString()),
-                    new JsonProperty("Tags", tags.Tags)
-                }.Concat(properties))
-            };
-        }
-
         public IKafkaDocument Counter(string name, DateTime timestamp, CounterValue value, Unit unit, MetricTags tags)
         {
             return new JsonKafkaDocument<Counter>
@@ -61,19 +46,9 @@ namespace Metrics.Kafka
                         Name = i.Item,
                         Count = i.Count,
                         Percentage = i.Percent
-                    }).ToArray() 
+                    }).ToArray()
                 }
             };
-            var itemProperties = value.Items.SelectMany(i => new[]
-            {
-                new JsonProperty(i.Item + " - Count", i.Count),
-                new JsonProperty(i.Item + " - Percent", i.Percent),
-            });
-
-            return Pack("Counter", name, timestamp, unit, tags, new[]
-            {
-                new JsonProperty("Count", value.Count),
-            }.Concat(itemProperties));
         }
 
         public IKafkaDocument Meter(string name, DateTime timestamp, MeterValue value, Unit unit, TimeUnit timeUnit, MetricTags tags)
@@ -138,6 +113,44 @@ namespace Metrics.Kafka
                     Percentile99 = value.Percentile99,
                     Percentile999 = value.Percentile999,
                     SampleSize = value.SampleSize
+                }
+            };
+        }
+
+        public IKafkaDocument Timer(string name, DateTime timestamp, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags)
+        {
+            return new JsonKafkaDocument<Timer>
+            {
+                Name = name,
+                Timestamp = timestamp,
+                Type = "Timer",
+                Tags = tags.Tags,
+                Value = new Timer
+                {
+                    Unit = unit,
+                    RateUnit = rateUnit,
+                    DurationUnit = durationUnit,
+                    ActiveSessions = value.ActiveSessions,
+                    Count = value.Rate.Count,
+                    Last = value.Histogram.LastValue,
+                    LastUserValue = value.Histogram.LastUserValue,
+                    Max = value.Histogram.Max,
+                    MaxUserValue = value.Histogram.MaxUserValue,
+                    Mean = value.Histogram.Mean,
+                    Min = value.Histogram.Min,
+                    MinUserValue = value.Histogram.MinUserValue,
+                    StdDev = value.Histogram.StdDev,
+                    Median = value.Histogram.Median,
+                    Percentile75 = value.Histogram.Percentile75,
+                    Percentile95 = value.Histogram.Percentile95,
+                    Percentile98 = value.Histogram.Percentile98,
+                    Percentile99 = value.Histogram.Percentile99,
+                    Percentile999 = value.Histogram.Percentile999,
+                    SampleSize = value.Histogram.SampleSize,
+                    MeanRate = value.Rate.MeanRate,
+                    OneMinRate = value.Rate.OneMinuteRate,
+                    FiveMinRate = value.Rate.FiveMinuteRate,
+                    FifteenMinRate = value.Rate.FifteenMinuteRate
                 }
             };
         }

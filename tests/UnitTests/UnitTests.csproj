@@ -89,6 +89,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="given_a_json_encoder\when_converting_a_counter_to_a_kafka_document.cs" />
+    <Compile Include="given_a_json_encoder\when_converting_a_health_report_to_a_kafka_document.cs" />
     <Compile Include="given_a_json_encoder\when_converting_a_timer_to_a_kafka_document.cs" />
     <Compile Include="given_a_json_encoder\when_converting_a_histogram_to_a_kafka_document.cs" />
     <Compile Include="given_a_json_encoder\when_converting_a_meter_to_a_kafka_document.cs" />

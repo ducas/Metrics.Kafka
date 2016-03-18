@@ -10,5 +10,6 @@ namespace Metrics.Kafka
         IKafkaDocument Meter(string name, DateTime timestamp, MeterValue value, Unit unit, TimeUnit timeUnit, MetricTags tags);
         IKafkaDocument Histogram(string name, DateTime timestamp, HistogramValue value, Unit unit, MetricTags tags);
         IKafkaDocument Timer(string name, DateTime timestamp, TimerValue value, Unit unit, TimeUnit rateUnit, TimeUnit durationUnit, MetricTags tags);
+        IKafkaDocument Health(string name, DateTime timestamp, HealthStatus status);
     }
 }

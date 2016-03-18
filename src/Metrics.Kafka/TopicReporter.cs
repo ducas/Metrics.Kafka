@@ -80,28 +80,9 @@ namespace Metrics.Kafka
 
         protected override void ReportHealth(HealthStatus status)
         {
-            const string type = "Health";
-            var name = _contextName + "-health";
-            var results = status.Results
-                .Select(r => new JsonObject(new[]
-                {
-                    new JsonProperty("Name", r.Name),
-                    new JsonProperty("IsHealthy", r.Check.IsHealthy),
-                    new JsonProperty("Message", r.Check.Message)
-                }));
-
-            _data.Add(new JsonKafkaDocument
-            {
-                Properties = new JsonObject(new[]
-                {
-                    new JsonProperty("Timestamp", Clock.FormatTimestamp(CurrentContextTimestamp)),
-                    new JsonProperty("Type", type),
-                    new JsonProperty("Name", name),
-                    new JsonProperty("IsHealthy", status.IsHealthy),
-                    new JsonProperty("HasRegisteredChecks", status.HasRegisteredChecks),
-                    new JsonProperty("Results", results)
-                })
-            });
+            _mapper
+                .Health(_contextName + "-health", CurrentContextTimestamp, status)
+                .AddTo(_data);
         }
     }
 }

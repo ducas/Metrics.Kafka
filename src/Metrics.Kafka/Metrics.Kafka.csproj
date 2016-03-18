@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Counter.cs" />
     <Compile Include="Gauge.cs" />
+    <Compile Include="Health.cs" />
     <Compile Include="Histogram.cs" />
     <Compile Include="IMapper.cs" />
     <Compile Include="IKafkaDocument.cs" />

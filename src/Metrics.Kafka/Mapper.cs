@@ -11,7 +11,7 @@ namespace Metrics.Kafka
     {
         public IKafkaDocument Gauge(string name, DateTime timestamp, double value, Unit unit, MetricTags tags)
         {
-            if (!double.IsNaN(value) && !double.IsInfinity(value))
+            if (!Double.IsNaN(value) && !Double.IsInfinity(value))
             {
                 return new JsonKafkaDocument<Gauge>
                 {
@@ -151,6 +151,29 @@ namespace Metrics.Kafka
                     OneMinRate = value.Rate.OneMinuteRate,
                     FiveMinRate = value.Rate.FiveMinuteRate,
                     FifteenMinRate = value.Rate.FifteenMinuteRate
+                }
+            };
+        }
+
+        public IKafkaDocument Health(string name, DateTime timestamp, HealthStatus status)
+        {
+            return new JsonKafkaDocument<Health>
+            {
+                Name = name,
+                Type = "Health",
+                Timestamp = timestamp,
+                Tags = null,
+                Value = new Health
+                {
+                    IsHealthy = status.IsHealthy,
+                    HasRegisteredChecks = status.HasRegisteredChecks,
+                    Results = status.Results
+                        .Select(r => new HealthCheck
+                        {
+                            Name = r.Name,
+                            IsHealthy = r.Check.IsHealthy,
+                            Message = r.Check.Message
+                        })
                 }
             };
         }

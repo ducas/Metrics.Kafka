@@ -12,21 +12,20 @@ namespace Metrics.Kafka
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly IKafkaClient _client;
         private readonly IKafkaTopic _topic;
-        private string _contextName;
-        private List<IKafkaDocument> _data;
         private readonly IMapper _mapper;
         private readonly IEncoder _encoder;
+        private readonly Compression _codec;
 
-        public TopicReporter(string zookeeperConnect, string topicName)
-            : this(new KafkaClient(zookeeperConnect), topicName)
-        { }
+        private string _contextName;
+        private List<IKafkaDocument> _data;
 
-        public TopicReporter(IKafkaClient client, string topicName)
+        public TopicReporter(string zookeeperConnect, string topicName, IEncoder encoder, Compression codec)
         {
-            _client = client;
+            _client = new KafkaClient(zookeeperConnect);
             _topic = _client.Topic(topicName);
+            _encoder = encoder;
+            _codec = codec;
             _mapper = new Mapper();
-            _encoder = new JsonEncoder();
         }
 
         protected override void StartReport(string contextName)
@@ -39,7 +38,7 @@ namespace Metrics.Kafka
         protected override void EndReport(string contextName)
         {
             base.EndReport(contextName);
-            var messages = _encoder.Encode(contextName, _data).ToArray();
+            var messages = _encoder.Encode(contextName, _data, _codec).ToArray();
             _topic.Send(messages);
         }
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Metrics.Json;
 using Metrics.MetricData;
-using Metrics.Utils;
 
 namespace Metrics.Kafka
 {

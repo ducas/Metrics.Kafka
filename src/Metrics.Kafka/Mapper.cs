@@ -8,7 +8,7 @@ namespace Metrics.Kafka
     {
         public IKafkaDocument Gauge(string name, DateTime timestamp, double value, Unit unit, MetricTags tags)
         {
-            if (!Double.IsNaN(value) && !Double.IsInfinity(value))
+            if (!double.IsNaN(value) && !double.IsInfinity(value))
             {
                 return new KafkaDocument<Gauge>
                 {

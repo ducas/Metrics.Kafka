@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnitTests</RootNamespace>
     <AssemblyName>Metrics.Kafka.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,12 +44,12 @@
       <HintPath>..\..\packages\FluentAssertions.4.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Kafka.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Kafka.Basic.1.0.0-CI00004\lib\net451\Kafka.Basic.dll</HintPath>
+    <Reference Include="Kafka.Basic, Version=0.1.31.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Kafka.Basic.0.1.31\lib\net451\Kafka.Basic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="KafkaNET.Library, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\KafkaNet.0.0.1-alpha00003\lib\net45\KafkaNET.Library.dll</HintPath>
+      <HintPath>..\..\packages\KafkaNet.0.1.20\lib\net45\KafkaNET.Library.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
@@ -57,6 +58,10 @@
     </Reference>
     <Reference Include="Metrics, Version=0.2.16.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Metrics.NET.0.2.16\lib\net45\Metrics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NSubstitute, Version=1.9.2.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
@@ -84,6 +89,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="given_a_json_encoder\when_converting_a_counter_to_a_kafka_document.cs" />
+    <Compile Include="given_a_json_encoder\when_converting_a_health_report_to_a_kafka_document.cs" />
+    <Compile Include="given_a_json_encoder\when_converting_a_timer_to_a_kafka_document.cs" />
+    <Compile Include="given_a_json_encoder\when_converting_a_histogram_to_a_kafka_document.cs" />
+    <Compile Include="given_a_json_encoder\when_converting_a_meter_to_a_kafka_document.cs" />
     <Compile Include="given_a_json_encoder\when_converting_a_gauge_to_a_kafka_document.cs" />
     <Compile Include="given_a_kafka_document\when_converting_to_a_message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

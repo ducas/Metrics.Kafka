@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using Kafka.Basic;
-using Metrics.Json;
 using Metrics.Kafka;
 using NUnit.Framework;
 

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using CommandLine;
 using Metrics;
-using Metrics.Core;
-using Metrics.Json;
 using Metrics.Kafka;
 
 namespace TestConsole

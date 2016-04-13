@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UnitTests</RootNamespace>
     <AssemblyName>Metrics.Kafka.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,12 +44,12 @@
       <HintPath>..\..\packages\FluentAssertions.4.2.2\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Kafka.Basic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Kafka.Basic.1.0.0-CI00009\lib\net451\Kafka.Basic.dll</HintPath>
+    <Reference Include="Kafka.Basic, Version=0.1.31.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Kafka.Basic.0.1.31\lib\net451\Kafka.Basic.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="KafkaNET.Library">
-      <HintPath>..\..\packages\KafkaNet.0.0.1-alpha00014\lib\net45\KafkaNET.Library.dll</HintPath>
+    <Reference Include="KafkaNET.Library, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\KafkaNet.0.1.20\lib\net45\KafkaNET.Library.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">

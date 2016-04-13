@@ -25,7 +25,7 @@ namespace Metrics.Kafka
         {
             return documents.Select(d => new Message
             {
-                Key = contextName,
+                Key = $"{contextName}:{d.Type}:{d.Name}",
                 Value = JsonConvert.SerializeObject(d, Settings),
                 Codec = codec
             });
